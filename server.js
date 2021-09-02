@@ -1,6 +1,15 @@
 const express = require('express');
 const app = express();
 const debug = require('debug')('node:server');
+const bodyParser = require('body-parser');
+const branches = require('./routes/branches');
+
+
+// middlewares setup
+app.use(bodyParser.json({ limit: '16mb' }))
+
+//routes setup
+app.use('/branches', branches)
 
 
 const port = process.env.PORT || 5000;
