@@ -2,9 +2,10 @@ const _ = require('lodash');
 const express = require('express');
 const router = express.Router();
 const mysql = require('../api/mysql');
+const auth = require('../middlewares/auth');
 
 
-router.get('/', async (req, res) => {
+router.get('/', auth(['Admin', 'Staff']), async (req, res) => {
 
   try {
     const modelData = {
@@ -32,7 +33,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', auth(['Admin', 'Staff']), async (req, res) => {
 
   try {
     const { id } = req.params;
@@ -64,7 +65,7 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-router.post('/:id', async (req, res) => {
+router.post('/:id', auth(['Admin']), async (req, res) => {
 
   try {
     const { id } = req.params;

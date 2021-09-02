@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const debug = require('debug')('node:server');
 const bodyParser = require('body-parser');
+const main = require('./routes');
 const branches = require('./routes/branches');
 
 
@@ -9,7 +10,8 @@ const branches = require('./routes/branches');
 app.use(bodyParser.json({ limit: '16mb' }))
 
 //routes setup
-app.use('/api/branches', branches)
+app.use('/api', main);
+app.use('/api/branches', branches);
 
 
 const port = process.env.PORT || 5000;
