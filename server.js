@@ -9,7 +9,7 @@ const branches = require('./routes/branches');
 app.use(bodyParser.json({ limit: '16mb' }))
 
 //routes setup
-app.use('/branches', branches)
+app.use('/api/branches', branches)
 
 
 const port = process.env.PORT || 5000;
