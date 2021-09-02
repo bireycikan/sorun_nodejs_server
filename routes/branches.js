@@ -32,5 +32,38 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/:id', async (req, res) => {
+
+  try {
+    const { id } = req.params;
+
+    const modelData = {
+      operation: 'GET',
+      model: {
+        name: 'Branches',
+        fields: {
+          branch_id: id
+        }
+      }
+    };
+
+    const result = await mysql({
+      method: 'POST',
+      data: modelData
+    })
+
+    res.status(200).json(result.data);
+  } catch (err) {
+    if (err.isAxiosError) {
+      const { response: { status, data } } = err;
+      res.status(status).send(`${data}`)
+    }
+    else {
+      res.status(400).send(`Something failed: ${err.message}`);
+    }
+  }
+})
+
+
 
 module.exports = router;
